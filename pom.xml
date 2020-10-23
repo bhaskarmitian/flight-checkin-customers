@@ -7,7 +7,7 @@
 	<version>1</version>
 	<packaging>jar</packaging>
 	<name>flight-checkin-customers</name>
-	<description>Microservice for CheckIn Customers</description>
+	<description>Microservice for CheckIn Customers tmp1</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
