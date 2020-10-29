@@ -14,7 +14,8 @@ import com.brownfield.pss.checkin.entity.CheckInRecord;
 import com.brownfield.pss.checkin.repository.CheckinRepository;
 
 @SpringBootApplication
-public class Application implements CommandLineRunner {
+//public class Application implements CommandLineRunner {
+public class Application{
 	private static final Logger logger = LoggerFactory.getLogger(Application.class);
 
 	@Autowired
@@ -29,15 +30,16 @@ public class Application implements CommandLineRunner {
 		SpringApplication.run(Application.class, args);
 	}
 	
-	@Override
-	public void run(String... strings) throws Exception {
-		CheckInRecord record = new CheckInRecord("Franc", "Gean","28A",new Date(),"BF101","22-JAN-16",1);
-		if(checkinComponent.checkIn(record) == -1){ 
-			logger.info("Wrong booking id "+ record.getBookingId());
-		}
-		
-		if(checkinComponent.checkIn(record) == -2){ 
-			logger.info("Already checkd In against booking id "+ record.getBookingId());
-		}
-	}
+//	@Override
+//	public void run(String... strings) throws Exception {
+//		CheckInRecord record = new CheckInRecord("Franc", "Gean","28A",new Date(),"BF101","22-JAN-16",1);
+//		logger.debug("checkIn() ", checkinComponent.checkIn(record));
+//		if(checkinComponent.checkIn(record) == -1){ 
+//			logger.info("Wrong booking id "+ record.getBookingId());
+//		}
+//		
+//		if(checkinComponent.checkIn(record) == -2){ 
+//			logger.info("Already checkd In against booking id "+ record.getBookingId());
+//		}
+//	}
 }

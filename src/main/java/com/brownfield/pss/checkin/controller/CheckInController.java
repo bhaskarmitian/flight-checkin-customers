@@ -25,7 +25,7 @@ public class CheckInController {
 	
 	@RequestMapping("/get/{id}")
 	CheckInRecord getCheckIn(@PathVariable long id ){
-		return checkInComponent.getCheckInRecord(id);
+		return checkInComponent.getCheckInRecord(id).get();
 	}
 
 	@RequestMapping(value ="/create", method = RequestMethod.POST)

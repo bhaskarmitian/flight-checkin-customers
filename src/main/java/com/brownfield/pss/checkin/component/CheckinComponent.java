@@ -1,10 +1,12 @@
 package com.brownfield.pss.checkin.component;
 
 import java.util.Date;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -19,7 +21,14 @@ public class CheckinComponent {
 	private static final String bookingURL = "http://localhost:8060/booking"; // Added by Ramesh.K
 
 	// @Autowired
-	private RestTemplate restTemplate; // Added by Ramesh
+	//private RestTemplate restTemplate; // Added by Ramesh
+
+	@Bean
+	public RestTemplate getRestTemplate() {
+		return new RestTemplate();
+	}
+	@Autowired
+    private RestTemplate restTemplate; // Added by Ramesh
 
 	CheckinRepository checkinRepository;
 	Sender sender;
@@ -43,17 +52,18 @@ public class CheckinComponent {
 			if (bookingRecord != null) { // booking existed
 				if (bookingRecord.getStatus().equals(BookingStatus.CHECKED_IN)) { // already checked in
 					return -2;
-				} else { // correct booking id and passenger not Checked-In yet.  
+				} else { // correct booking id and passenger not Checked-In yet.
 					logger.info("Booking info is " + bookingRecord.toString());
 					checkIn.setCheckInTime(new Date());
 					logger.info("Saving checkin ");
-					long checkInId = checkinRepository.save(checkIn).getId(); //Modified by Ramesh
+					long checkInId = checkinRepository.save(checkIn).getId(); // Modified by Ramesh
 					logger.info("Successfully saved checkin ");
-					
-					// Send bookingId to Booking Microservice via RabbitMQ to update the status to CHECKED_IN
+
+					// Send bookingId to Booking Microservice via RabbitMQ to update the status to
+					// CHECKED_IN
 					logger.info("Sending booking id " + bookingId);
 					sender.send(bookingId);
-					return checkInId; //added by Ramesh
+					return checkInId; // added by Ramesh
 				}
 			} else { // In case of wrong booking id
 				return -1;
@@ -66,8 +76,8 @@ public class CheckinComponent {
 		return bookingId;
 	}
 
-	public CheckInRecord getCheckInRecord(long id) {
-		return checkinRepository.findOne(id);
+	public Optional<CheckInRecord> getCheckInRecord(long id) {
+		return checkinRepository.findById(id);
 	}
 
 }
