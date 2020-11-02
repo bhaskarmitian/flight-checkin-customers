@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 import com.brownfield.pss.checkin.component.CheckinComponent;
 import com.brownfield.pss.checkin.entity.CheckInRecord;
@@ -15,6 +16,7 @@ import com.brownfield.pss.checkin.repository.CheckinRepository;
 
 @SpringBootApplication
 //public class Application implements CommandLineRunner {
+@EnableDiscoveryClient
 public class Application{
 	private static final Logger logger = LoggerFactory.getLogger(Application.class);
 
